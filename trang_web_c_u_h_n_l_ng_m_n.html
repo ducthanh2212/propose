@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lời Thì Thầm Của Trái Tim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        playfair: ['"Playfair Display"', 'serif'],
+                        quicksand: ['Quicksand', 'sans-serif'],
+                    },
+                    colors: {
+                        romantic: {
+                            50: '#fff5f5',
+                            100: '#ffe3e3',
+                            200: '#ffd0d0',
+                            300: '#ffb3b3',
+                            400: '#ff8585',
+                            500: '#ff5c5c',
+                            600: '#ff3333',
+                            700: '#e61a1a',
+                            800: '#b30000',
+                            900: '#800000',
+                            dark: '#2d1b1b',
+                            gold: '#d4af37',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'heartbeat': 'heartbeat 1.5s ease-in-out infinite',
+                        'sparkle': 'sparkle 1.5s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        heartbeat: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '25%': { transform: 'scale(1.1)' },
+                            '40%': { transform: 'scale(1.05)' },
+                        },
+                        sparkle: {
+                            '0%, 100%': { opacity: 0.3 },
+                            '50%': { opacity: 1 },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #fff5f5;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #ff5c5c 0%, #b30000 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fff5f5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ffb3b3;
+            border-radius: 10px;
+        }
+        /* Polaroid touch slide container */
+        .polaroid-slider {
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+        }
+        .polaroid-slider::-webkit-scrollbar {
+            display: none;
+        }
+        .polaroid-card {
+            scroll-snap-align: center;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        /* Fade-in animation class on scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Popup Animations */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0) rotate(0deg); }
+            15%, 45%, 75% { transform: translateX(-8px) rotate(-5deg); }
+            30%, 60%, 90% { transform: translateX(8px) rotate(5deg); }
+        }
+        .animate-shake {
+            animation: shake 0.6s cubic-bezier(.36,.07,.19,.97) infinite;
+        }
+        @keyframes popUp {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-pop {
+            animation: popUp 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen text-romantic-dark">
+
+    <!-- Màn hình chào ban đầu - Chạm để bắt đầu trải nghiệm -->
+    <div id="landing-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-romantic-100 via-romantic-50 to-white transition-all duration-1000">
+        <!-- Floating hearts in background -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-1/4 left-1/10 animate-float opacity-20 text-romantic-500 text-4xl"><i class="fas fa-heart"></i></div>
+            <div class="absolute top-1/3 right-1/4 animate-float opacity-30 text-romantic-300 text-6xl" style="animation-delay: 1s;"><i class="fas fa-heart"></i></div>
+            <div class="absolute bottom-1/4 left-1/3 animate-float opacity-25 text-romantic-400 text-3xl" style="animation-delay: 1.5s;"><i class="fas fa-heart"></i></div>
+            <div class="absolute bottom-1/3 right-1/10 animate-float opacity-15 text-romantic-500 text-5xl" style="animation-delay: 0.5s;"><i class="fas fa-heart"></i></div>
+        </div>
+
+        <div class="text-center px-6 z-10">
+            <div class="w-32 h-32 mx-auto mb-8 relative flex items-center justify-center">
+                <div class="absolute inset-0 bg-romantic-200 rounded-full animate-ping opacity-75"></div>
+                <div class="relative bg-white text-romantic-500 rounded-full p-6 shadow-xl animate-heartbeat text-5xl flex items-center justify-center">
+                    <i class="fas fa-heart"></i>
+                </div>
+            </div>
+            
+            <h1 class="font-playfair text-3xl md:text-5xl font-bold mb-4 text-gradient leading-tight">
+                Hành Trình Yêu Thương
+            </h1>
+            <p class="text-romantic-600 text-sm md:text-base max-w-sm mx-auto mb-12 font-medium tracking-wide">
+                Một không gian đặc biệt lưu giữ những khoảnh khắc ngọt ngào nhất của chúng ta.
+            </p>
+
+            <button id="start-btn" class="px-8 py-4 bg-gradient-to-r from-romantic-400 to-romantic-600 text-white rounded-full font-bold shadow-lg hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 text-base flex items-center gap-3 mx-auto">
+                <span>Chạm để khám phá</span>
+                <i class="fas fa-magic"></i>
+            </button>
+            <p class="text-xs text-romantic-400 mt-4 animate-pulse">Hãy bật âm lượng điện thoại bạn nhé ❤️</p>
+        </div>
+    </div>
+
+    <!-- Nhạc nền MP3 -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://raw.githubusercontent.com/ducthanh2212/propose/main/song.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Nút điều khiển âm nhạc nhỏ nhắn ở góc màn hình -->
+    <div id="music-widget" class="fixed top-4 right-4 z-40 hidden">
+        <button id="music-toggle" class="w-10 h-10 rounded-full bg-white/80 backdrop-blur-md shadow-lg border border-romantic-100 text-romantic-500 flex items-center justify-center hover:scale-110 active:scale-90 transition-all duration-300">
+            <i id="music-icon" class="fas fa-music animate-spin" style="animation-duration: 4s;"></i>
+        </button>
+    </div>
+
+    <!-- Toàn bộ nội dung ứng dụng, ẩn đi trước khi bấm bắt đầu -->
+    <div id="main-content" class="hidden overflow-x-hidden pb-32">
+
+        <!-- Header -->
+        <header class="text-center pt-16 pb-8 px-6">
+            <span class="text-xs font-bold tracking-widest text-romantic-500 uppercase bg-romantic-100 px-4 py-1.5 rounded-full">Kỷ niệm ngọt ngào</span>
+            <h2 class="font-playfair text-4xl font-bold mt-4 mb-2 text-gradient">Nơi Tình Yêu Bắt Đầu</h2>
+            <p class="text-romantic-500 text-xs italic">Kéo xuống để cùng anh quay ngược thời gian...</p>
+            <div class="flex justify-center mt-4">
+                <div class="h-[2px] w-12 bg-romantic-200"></div>
+                <div class="mx-2 text-romantic-300 text-xs"><i class="fas fa-heart"></i></div>
+                <div class="h-[2px] w-12 bg-romantic-200"></div>
+            </div>
+        </header>
+
+        <!-- Dòng thời gian cuộn dọc lãng mạn -->
+        <section id="timeline" class="max-w-md mx-auto px-6 relative py-8">
+            <!-- Trục dọc ở giữa timeline -->
+            <div class="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-romantic-200 via-romantic-400 to-romantic-200 -translate-x-1/2"></div>
+
+            <!-- Mốc thời gian 1 -->
+            <div class="reveal relative mb-16 pl-8 md:pl-0 md:grid md:grid-cols-2 md:gap-8 items-center">
+                <div class="absolute left-6 md:left-1/2 w-4 h-4 bg-romantic-400 rounded-full border-4 border-white -translate-x-1/2 shadow-md z-10"></div>
+                <div class="md:text-right md:pr-8">
+                    <span class="inline-block px-3 py-1 bg-white text-romantic-500 text-xs font-bold rounded-full shadow-sm mb-2 border border-romantic-100">Ngày Đầu Gặp Gỡ</span>
+                </div>
+                <div class="bg-white p-4 rounded-2xl shadow-md border border-romantic-50 transform hover:-translate-y-1 transition duration-300">
+                    <!-- Minh họa SVG Ngày đầu tiên -->
+                    <div class="w-full h-40 bg-romantic-50 rounded-xl mb-3 flex items-center justify-center overflow-hidden">
+                        <img src="https://raw.githubusercontent.com/ducthanh2212/propose/main/anh_mat.jpg" 
+                             alt="Khoảnh khắc ngập ngừng" 
+                             class="w-full h-full object-cover" 
+                             loading="lazy">
+                    </div>
+                    <h4 class="font-bold text-base mb-1 text-romantic-800">Khoảnh khắc ngập ngừng</h4>
+                    <p class="text-xs text-romantic-600 leading-relaxed">
+                        Ánh mắt đầu tiên chạm nhau, trái tim anh như lỡ đi một nhịp. Nụ cười nhẹ nhàng của em ngày hôm ấy đã làm sưởi ấm cả mùa đông trong anh.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Mốc thời gian 2 -->
+            <div class="reveal relative mb-16 pl-8 md:pl-0 md:grid md:grid-cols-2 md:gap-8 items-center">
+                <div class="absolute left-6 md:left-1/2 w-4 h-4 bg-romantic-400 rounded-full border-4 border-white -translate-x-1/2 shadow-md z-10"></div>
+                <div class="md:col-start-2 md:pl-8">
+                    <span class="inline-block px-3 py-1 bg-white text-romantic-500 text-xs font-bold rounded-full shadow-sm mb-2 border border-romantic-100">Buổi Hẹn Đầu Tiên</span>
+                </div>
+                <div class="bg-white p-4 rounded-2xl shadow-md border border-romantic-50 md:col-start-1 md:row-start-1 transform hover:-translate-y-1 transition duration-300">
+                    <div class="w-full h-40 bg-romantic-50 rounded-xl mb-3 flex items-center justify-center overflow-hidden">
+                        <img src="https://raw.githubusercontent.com/ducthanh2212/propose/main/cafe.jpg" 
+                             alt="Cà phê và những câu chuyện" 
+                             class="w-full h-full object-cover" 
+                             loading="lazy">
+                    </div>
+                    <h4 class="font-bold text-base mb-1 text-romantic-800">Cà phê và những câu chuyện</h4>
+                    <p class="text-xs text-romantic-600 leading-relaxed">
+                        Góc quán quen, hương thơm dìu dịu. Chúng ta cùng chia sẻ từng sở thích nhỏ nhặt nhất, để rồi nhận ra mình sinh ra là để dành cho nhau.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Mốc thời gian 3 -->
+            <div class="reveal relative mb-16 pl-8 md:pl-0 md:grid md:grid-cols-2 md:gap-8 items-center">
+                <div class="absolute left-6 md:left-1/2 w-4 h-4 bg-romantic-400 rounded-full border-4 border-white -translate-x-1/2 shadow-md z-10"></div>
+                <div class="md:text-right md:pr-8">
+                    <span class="inline-block px-3 py-1 bg-white text-romantic-500 text-xs font-bold rounded-full shadow-sm mb-2 border border-romantic-100">Hành Trình Cùng Nhau</span>
+                </div>
+                <div class="bg-white p-4 rounded-2xl shadow-md border border-romantic-50 transform hover:-translate-y-1 transition duration-300">
+                    <div class="w-full h-40 bg-romantic-50 rounded-xl mb-3 flex items-center justify-center overflow-hidden">
+                        <img src="https://raw.githubusercontent.com/ducthanh2212/propose/main/dat_chan.jpg" 
+                             alt="Đặt chân đến muôn nơi" 
+                             class="w-full h-full object-cover" 
+                             loading="lazy">
+                    </div>
+                    <h4 class="font-bold text-base mb-1 text-romantic-800">Đặt chân đến muôn nơi</h4>
+                    <p class="text-xs text-romantic-600 leading-relaxed">
+                        Mỗi thành phố ta qua, mỗi ngọn đồi ta leo đều in hằn tiếng cười của em. Được ngắm thế giới cùng em chính là đặc ân lớn nhất của anh.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Thư viện ảnh tương tác vuốt ngang dạng Polaroid cổ điển -->
+        <section id="gallery" class="py-12 bg-gradient-to-b from-white to-romantic-50">
+            <div class="text-center mb-8 px-6">
+                <h3 class="font-playfair text-2xl font-bold text-romantic-800">Album Trái Tim</h3>
+                <p class="text-xs text-romantic-500 mt-1">Vuốt ngang để lật xem các tấm ảnh đặc biệt (lắc nhẹ khi chạm)</p>
+            </div>
+
+            <!-- Polaroid Swiper -->
+            <div class="polaroid-slider flex overflow-x-auto gap-6 px-8 py-6 cursor-grab active:cursor-grabbing snap-x">
+                
+                <!-- Polaroid 1 -->
+                <div class="polaroid-card flex-shrink-0 w-64 bg-white p-4 rounded-sm shadow-xl border border-neutral-100 transform -rotate-2 hover:rotate-0 hover:scale-105 active:scale-95 transition-all duration-300 snap-center">
+                    <div class="w-full h-56 rounded-sm flex items-center justify-center relative overflow-hidden">
+                        <img src="https://raw.githubusercontent.com/ducthanh2212/propose/main/chieu_hoang_hon.jpg" 
+                             alt="Chiều hoàng hôn dưới bóng thông reo" 
+                             class="w-full h-full object-cover" 
+                             loading="lazy">
+
+                    </div>
+                    <div class="pt-4 pb-2 text-center">
+                        <p class="font-playfair text-sm italic text-neutral-700">"Chiều hoàng hôn dưới bóng thông reo..."</p>
+                        <span class="text-[10px] text-neutral-400 block mt-2">14 / 02 / 2024</span>
+                    </div>
+                </div>
+
+                <!-- Polaroid 2 -->
+                <div class="polaroid-card flex-shrink-0 w-64 bg-white p-4 rounded-sm shadow-xl border border-neutral-100 transform rotate-3 hover:rotate-0 hover:scale-105 active:scale-95 transition-all duration-300 snap-center">
+                    <div class="w-full h-56 rounded-sm flex items-center justify-center relative overflow-hidden">
+                        <img src="https://raw.githubusercontent.com/ducthanh2212/propose/main/song_vo.jpg" 
+                             alt="Sóng vỗ êm đềm như lời anh nói" 
+                             class="w-full h-full object-cover" 
+                             loading="lazy">
+
+                    </div>
+                    <div class="pt-4 pb-2 text-center">
+                        <p class="font-playfair text-sm italic text-neutral-700">"Sóng vỗ êm đềm như lời anh nói..."</p>
+                        <span class="text-[10px] text-neutral-400 block mt-2">30 / 04 / 2024</span>
+                    </div>
+                </div>
+
+                <!-- Polaroid 3 -->
+                <div class="polaroid-card flex-shrink-0 w-64 bg-white p-4 rounded-sm shadow-xl border border-neutral-100 transform -rotate-1 hover:rotate-0 hover:scale-105 active:scale-95 transition-all duration-300 snap-center">
+                    <div class="w-full h-56 rounded-sm flex items-center justify-center relative overflow-hidden">
+                        <img src="https://raw.githubusercontent.com/ducthanh2212/propose/main/den_lung_linh.jpg" 
+                             alt="Lồng đèn lung linh không bằng mắt em" 
+                             class="w-full h-full object-cover" 
+                             loading="lazy">
+
+                    </div>
+                    <div class="pt-4 pb-2 text-center">
+                        <p class="font-playfair text-sm italic text-neutral-700">"Lồng đèn lung linh không bằng mắt em..."</p>
+                        <span class="text-[10px] text-neutral-400 block mt-2">02 / 09 / 2024</span>
+                    </div>
+                </div>
+
+                <!-- Polaroid 4 -->
+                <div class="polaroid-card flex-shrink-0 w-64 bg-white p-4 rounded-sm shadow-xl border border-neutral-100 transform rotate-2 hover:rotate-0 hover:scale-105 active:scale-95 transition-all duration-300 snap-center">
+                    <div class="w-full h-56 rounded-sm flex items-center justify-center relative overflow-hidden">
+                        <img src="https://raw.githubusercontent.com/ducthanh2212/propose/main/com_am.jpg" 
+                             alt="Cơm ấm, trà thơm và có em bên cạnh" 
+                             class="w-full h-full object-cover" 
+                             loading="lazy">
+
+                    </div>
+                    <div class="pt-4 pb-2 text-center">
+                        <p class="font-playfair text-sm italic text-neutral-700">"Cơm ấm, trà thơm và có em bên cạnh..."</p>
+                        <span class="text-[10px] text-neutral-400 block mt-2">24 / 12 / 2024</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Indicators -->
+            <div class="flex justify-center gap-1.5 mt-3">
+                <span class="w-1.5 h-1.5 rounded-full bg-romantic-400"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-romantic-200"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-romantic-200"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-romantic-200"></span>
+            </div>
+        </section>
+
+        <!-- Đố vui/Tương tác mở quà bằng cách nhấn giữ 3 giây -->
+        <section id="surprise" class="py-12 px-6 max-w-sm mx-auto text-center">
+            <div class="bg-white p-8 rounded-3xl shadow-xl border border-romantic-100 relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-24 h-24 bg-romantic-100 rounded-full opacity-50"></div>
+                <div class="absolute -bottom-10 -left-10 w-24 h-24 bg-romantic-100 rounded-full opacity-50"></div>
+
+                <div class="relative z-10">
+                    <h3 class="font-playfair text-xl font-bold text-romantic-800 mb-2">Điều Bất Ngờ Nhỏ</h3>
+                    <p class="text-xs text-romantic-500 mb-6 leading-relaxed">
+                        Có một chiếc thư điện tử nhỏ gửi từ năm sau... Hãy chạm và giữ liên tục trong 3 giây để mở ra nhé!
+                    </p>
+
+                    <!-- Hold Zone -->
+                    <div id="hold-container" class="relative w-36 h-36 mx-auto mb-6 flex items-center justify-center cursor-pointer select-none">
+                        <!-- Progress Circle SVG -->
+                        <svg class="absolute inset-0 w-full h-full transform -rotate-90">
+                            <circle cx="72" cy="72" r="62" stroke="#ffe3e3" stroke-width="6" fill="transparent" />
+                            <circle id="progress-bar" cx="72" cy="72" r="62" stroke="#ff5c5c" stroke-width="6" fill="transparent" 
+                                    stroke-dasharray="390" stroke-dashoffset="390" stroke-linecap="round" class="transition-all duration-75" />
+                        </svg>
+
+                        <!-- Box icon and indicator text -->
+                        <div id="box-inner" class="w-24 h-24 bg-gradient-to-br from-romantic-400 to-romantic-600 rounded-full flex flex-col items-center justify-center text-white shadow-lg transform active:scale-90 transition duration-300">
+                            <i id="gift-icon" class="fas fa-gift text-3xl animate-bounce"></i>
+                            <span class="text-[9px] mt-1 font-bold uppercase tracking-widest">Giữ Chặt</span>
+                        </div>
+                    </div>
+
+                    <!-- Hint / Notification Msg Inside -->
+                    <div id="gift-message" class="hidden mt-4 p-4 bg-romantic-50 rounded-2xl border border-romantic-100 text-xs text-romantic-700 font-medium leading-relaxed animate-fade-in">
+                        ✨ "Từ khi có em, một năm 365 ngày ngày nào đối với anh cũng là ngày hạnh phúc nhất. Hãy luôn giữ nụ cười rạng rỡ này em nhé." ✨
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chương đặc sắc nhất: Màn cầu hôn (Climax) -->
+        <section id="climax" class="py-16 px-6 max-w-md mx-auto text-center min-h-[90vh] flex flex-col justify-center items-center relative">
+            <div id="fireworks-container" class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+                <!-- Canvas for beautiful fireworks dynamic background -->
+                <canvas id="fireworks-canvas" class="w-full h-full"></canvas>
+            </div>
+
+            <div class="relative z-10 bg-white/95 backdrop-blur-sm p-8 rounded-3xl shadow-2xl border-2 border-romantic-200/50 w-full">
+                <div class="text-romantic-500 text-5xl mb-6 animate-heartbeat">
+                    <i class="fas fa-heart"></i>
+                </div>
+                
+                <h3 class="font-playfair text-2xl md:text-3xl font-black mb-6 text-gradient leading-snug">
+                    Em có đồng ý cho anh làm phiền sự rảnh rỗi của em không?
+                </h3>
+                
+                <p class="text-xs text-romantic-500 mb-8 leading-relaxed">
+                    Hành trình vừa qua chỉ là khởi đầu, anh ước mong được nắm tay em đi suốt cả cuộc đời này. Đồng ý về chung một nhà với anh nhé?
+                </p>
+
+                <!-- Action Buttons Container -->
+                <div id="buttons-container" class="flex flex-col gap-5 mt-6 items-center justify-center w-full">
+                    <!-- YES Button -->
+                    <button id="yes-btn" class="w-48 py-4 bg-gradient-to-r from-emerald-400 to-teal-500 text-white rounded-full font-extrabold text-lg shadow-lg hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 z-10">
+                        ĐỒNG Ý! ❤️
+                    </button>
+
+                    <!-- NO Button (Not runner anymore) -->
+                    <div class="flex flex-col items-center gap-2 mt-2 w-full">
+                        <button id="no-btn" class="w-48 py-4 bg-gradient-to-r from-rose-400 to-red-500 text-white rounded-full font-extrabold text-lg shadow-lg hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 z-10">
+                            Không đồng ý 😢
+                        </button>
+                        <p class="text-[10px] text-neutral-400 italic font-medium leading-normal max-w-[260px] mx-auto">
+                            Thử chọn vào đây xem có điều bất ngờ gì không nè, chọn lại sau cũng được mà, thử xem đi vui lắm 😏
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fun Popup Modal for "Không đồng ý" selection -->
+        <div id="fun-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden">
+            <div class="bg-white rounded-3xl p-6 max-w-sm w-full text-center shadow-2xl border-2 border-romantic-200 animate-pop">
+                <div class="text-6xl mb-4 inline-block animate-shake">
+                    😤
+                </div>
+                <h4 class="font-playfair text-xl font-bold text-romantic-800 mb-2">Úi dồi ôi!</h4>
+                <p class="text-sm text-romantic-600 mb-6 font-medium leading-relaxed">
+                    Nói vậy cũng tin nữa má, quay về chọn lại cho đúng đi!
+                </p>
+                <button id="close-modal-btn" class="w-full py-3 bg-gradient-to-r from-romantic-400 to-romantic-600 text-white rounded-full font-bold text-xs shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-300">
+                    Chọn lại nè 🥺
+                </button>
+            </div>
+        </div>
+
+        <!-- Màn kết thúc ngọt ngào xuất hiện khi chọn "CÓ" -->
+        <section id="ending" class="hidden py-16 px-6 max-w-md mx-auto text-center animate-fade-in relative">
+            <div class="bg-gradient-to-br from-romantic-50 to-white p-8 rounded-3xl shadow-xl border border-romantic-100 relative overflow-hidden">
+                <div class="absolute -top-6 -left-6 text-6xl text-romantic-100"><i class="fas fa-quote-left"></i></div>
+                
+                <div class="relative z-10">
+                    <div class="w-full aspect-[16/9] mx-auto mb-6 rounded-2xl overflow-hidden shadow-lg border-4 border-white ring-1 ring-romantic-100">
+                        <img src="https://raw.githubusercontent.com/ducthanh2212/propose/main/kiss.jpg" 
+                             alt="Cảm ơn cuộc đời vì có em" 
+                             class="w-full h-full object-cover" 
+                             loading="lazy">
+                    </div>
+
+                    <h3 class="font-playfair text-2xl font-bold text-romantic-800 mb-4">Cảm Ơn Cuộc Đời Vì Có Em!</h3>
+                    <p class="text-sm text-romantic-700 leading-relaxed italic mb-6">
+                        "Anh sẽ luôn trân trọng, nâng niu tình cảm này. Cùng nhau viết tiếp những chương mới rực rỡ và hạnh phúc nhất của hai ta em nhé!"
+                    </p>
+                    
+                    <div class="h-[1px] bg-romantic-200 w-2/3 mx-auto mb-6"></div>
+                    
+                    <span class="text-xs font-bold text-romantic-500 tracking-wider block">Yêu em nhiều hơn mỗi ngày.</span>
+                    <span class="text-xs text-neutral-400 mt-1 block">Forever & Always ❤️</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // --- Background Music (MP3) ---
+        const bgMusic = document.getElementById('bg-music');
+        let isPlaying = false;
+
+        function startMusic() {
+            if (isPlaying) return;
+            bgMusic.play().then(() => {
+                isPlaying = true;
+                document.getElementById('music-icon').classList.add('animate-spin');
+            }).catch(e => console.log('Audio play failed:', e));
+        }
+
+        function stopMusic() {
+            bgMusic.pause();
+            isPlaying = false;
+            document.getElementById('music-icon').classList.remove('animate-spin');
+        }
+
+        // --- Audio controller setup ---
+        document.getElementById('music-toggle').addEventListener('click', () => {
+            if (isPlaying) {
+                stopMusic();
+            } else {
+                startMusic();
+            }
+        });
+
+        // --- Landing Screen Transition ---
+        document.getElementById('start-btn').addEventListener('click', () => {
+            const landing = document.getElementById('landing-screen');
+            const main = document.getElementById('main-content');
+            const widget = document.getElementById('music-widget');
+
+            // Start Music
+            startMusic();
+
+            // Transition UI
+            landing.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                landing.classList.add('hidden');
+                main.classList.remove('hidden');
+                widget.classList.remove('hidden');
+                
+                // Trigger reveal elements check
+                reveal();
+            }, 1000);
+        });
+
+        // --- STREAMING_CHUNK: Intersection Observer for Scroll Animations ---
+        function reveal() {
+            const reveals = document.querySelectorAll(".reveal");
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 100;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+
+        // --- STREAMING_CHUNK: Polaroid Shake Interaction ---
+        const cards = document.querySelectorAll('.polaroid-card');
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                card.style.transform = card.style.transform + ' scale(1.05) rotate(5deg)';
+                setTimeout(() => {
+                    card.style.transform = card.style.transform.replace(' scale(1.05) rotate(5deg)', '');
+                }, 400);
+            });
+        });
+
+        // --- STREAMING_CHUNK: Hold to Open Logic (3 seconds) ---
+        const holdContainer = document.getElementById('hold-container');
+        const progressBar = document.getElementById('progress-bar');
+        const boxInner = document.getElementById('box-inner');
+        const giftIcon = document.getElementById('gift-icon');
+        const giftMsg = document.getElementById('gift-message');
+
+        let pressTimer;
+        let startTime;
+        const requiredDuration = 3000; // 3 seconds
+        let isHolding = false;
+
+        function startPress(e) {
+            e.preventDefault();
+            if (isHolding) return;
+            isHolding = true;
+            
+            startTime = Date.now();
+            boxInner.classList.add('scale-95', 'bg-romantic-700');
+            giftIcon.classList.remove('animate-bounce');
+
+            // Update SVG circle animation smoothly
+            progressBar.style.transitionDuration = '3000ms';
+            progressBar.style.strokeDashoffset = '0';
+
+            pressTimer = setTimeout(() => {
+                unlockSurprise();
+            }, requiredDuration);
+        }
+
+        function endPress() {
+            if (!isHolding) return;
+            isHolding = false;
+            
+            clearTimeout(pressTimer);
+            boxInner.classList.remove('scale-95', 'bg-romantic-700');
+            giftIcon.classList.add('animate-bounce');
+
+            // Reset loading circle
+            progressBar.style.transitionDuration = '200ms';
+            progressBar.style.strokeDashoffset = '390';
+        }
+
+        function unlockSurprise() {
+            isHolding = false;
+            giftMsg.classList.remove('hidden');
+            boxInner.innerHTML = '<i class="fas fa-heart-open text-3xl text-white"></i><span class="text-[9px] mt-1 font-bold uppercase tracking-widest">Đã Mở</span>';
+            boxInner.classList.add('bg-emerald-500');
+            progressBar.style.stroke = '#10b981';
+            
+            // Disable events
+            holdContainer.removeEventListener('mousedown', startPress);
+            holdContainer.removeEventListener('touchstart', startPress);
+            window.removeEventListener('mouseup', endPress);
+            window.removeEventListener('touchend', endPress);
+        }
+
+        // Bind events
+        holdContainer.addEventListener('mousedown', startPress);
+        holdContainer.addEventListener('touchstart', startPress, { passive: false });
+        window.addEventListener('mouseup', endPress);
+        window.addEventListener('touchend', endPress);
+
+        // --- STREAMING_CHUNK: Trigger fun interactive popup (No Button) ---
+        const noBtn = document.getElementById('no-btn');
+        const funModal = document.getElementById('fun-modal');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+
+        noBtn.addEventListener('click', () => {
+            funModal.classList.remove('hidden');
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            funModal.classList.add('hidden');
+        });
+
+        // --- STREAMING_CHUNK: Fireworks / Confetti Canvas Climax System ---
+        const canvas = document.getElementById('fireworks-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let animationFrameId;
+
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.size = Math.random() * 4 + 2;
+                this.speedX = Math.random() * 6 - 3;
+                this.speedY = Math.random() * -8 - 2;
+                this.gravity = 0.15;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.015 + 0.005;
+                this.type = Math.random() > 0.4 ? 'circle' : 'heart';
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
+                
+                if (this.type === 'circle') {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                } else {
+                    // Draw a mini Heart
+                    ctx.beginPath();
+                    const d = this.size * 2;
+                    ctx.moveTo(this.x, this.y + d / 4);
+                    ctx.quadraticCurveTo(this.x, this.y, this.x + d / 2, this.y);
+                    ctx.quadraticCurveTo(this.x + d, this.y, this.x + d, this.y + d / 3);
+                    ctx.quadraticCurveTo(this.x + d, this.y + (d * 2) / 3, this.x + d / 2, this.y + d);
+                    ctx.quadraticCurveTo(this.x, this.y + (d * 2) / 3, this.x, this.y + d / 4);
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+
+            update() {
+                this.speedY += this.gravity;
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.alpha -= this.decay;
+            }
+        }
+
+        function createExplosion(x, y) {
+            const colors = ['#ff5c5c', '#ffb3b3', '#d4af37', '#ffd0d0', '#ff3333'];
+            for (let i = 0; i < 40; i++) {
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particles.push(new Particle(x, y, color));
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].alpha <= 0) {
+                    particles.splice(i, 1);
+                    i--;
+                }
+            }
+            animationFrameId = requestAnimationFrame(animateParticles);
+        }
+
+        // --- STREAMING_CHUNK: Success State Trigger ---
+        const yesBtn = document.getElementById('yes-btn');
+        const endingSection = document.getElementById('ending');
+
+        yesBtn.addEventListener('click', () => {
+            // Unveil final screen
+            endingSection.classList.remove('hidden');
+            endingSection.scrollIntoView({ behavior: 'smooth' });
+
+            // Launch continuous fireworks loop
+            animateParticles();
+            
+            // Continuous confetti bursts
+            const interval = setInterval(() => {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * (canvas.height / 2);
+                createExplosion(x, y);
+            }, 300);
+
+            // Clean up intervals after 10 seconds to save performance
+            setTimeout(() => {
+                clearInterval(interval);
+            }, 10000);
+
+            // Nhạc tiếp tục phát trong lúc pháo hoa bắn
+            if (!isPlaying) {
+                startMusic();
+            }
+        });
+
+    </script>
+</body>
+</html>
